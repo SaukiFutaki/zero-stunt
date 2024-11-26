@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nutrition Facts"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"
+
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_info_nutrisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informasi Nutrisi"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_info_nutrisi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_sayur_bayam"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/sayur_bayam"
+                tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_sayur_bayam_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:text="Sayur Bayam\nKalori: ...\nProtein: ...\nKarbohidrat: ...\nLemak: ...\nSerat: ...\nVitamin C: ... "/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_gulai_daging"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/gulai_daging_sapi"
+                tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_gulai_daging_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:text="Gulai Daging Sapi\nKalori: ...\nProtein: ...\nKarbohidrat: ...\nLemak: ...\nSerat: ...\nVitamin C: ... "/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_analisis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analisis Kecukupan Nutrisi"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_analisis_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kebutuhan nutrisi harian belum tercukupi, misalnya kebutuhan zat besi dan kalsium masih kurang, maka akan diberikan rekomendasi tambahan."
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_rekomendasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekomendasi Makanan untuk Hari Berikutnya"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_rekomendasi_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Untuk Zat Besi:\n   - Hati ayam panggang (100 gram): 8 mg zat besi\n   - Kacang-kacangan seperti kacang merah (100 gram): 2.5 mg zat besi\n• Untuk Kalsium:\n   - Susu skim (200 ml): 300 mg kalsium\n   - Tahu (100 gram): 178 mg kalsium\n• Rekomendasi lain (jika kalori atau vitamin belum mencukupi):\n   - Buah Jeruk atau Mangga untuk vitamin C\n   - Telur rebus untuk menambah asupan protein dan vitamin A"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
