@@ -9,208 +9,216 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/figma_ic_baby"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/figma_ic_baby"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/tv_selamat_datang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/selamat_datang"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/iv_profile"
-                app:layout_constraintTop_toTopOf="@id/iv_profile" />
+        <TextView
+            android:id="@+id/tv_selamat_datang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/selamat_datang"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
-            <TextView
-                android:id="@+id/tv_nama"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/aurora_ribero"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tv_selamat_datang"
-                app:layout_constraintTop_toBottomOf="@id/tv_selamat_datang" />
+        <TextView
+            android:id="@+id/tv_nama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aurora_ribero"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_selamat_datang"
+            app:layout_constraintTop_toBottomOf="@id/tv_selamat_datang" />
 
-            <ImageView
-                android:id="@+id/iv_notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_notification"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/iv_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_notification"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:id="@+id/ll_status_stunting"
+            android:layout_width="370dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_corner_pink"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile">
 
             <TextView
                 android:id="@+id/tv_status_stunting"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/anak_anda_tidak_nberpotensi_stunting"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile" />
-
-            <TextView
-                android:id="@+id/tv_keterangan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/kesimpulan_dihasilkan_dari_data_yang_di_masukan_pengguna"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_status_stunting" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_sobat_ahli"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_keterangan">
-
-
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/tv_misi_bareng_mama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/misi_bareng_mama"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cv_sobat_ahli"
-                app:layout_constraintTop_toBottomOf="@id/cv_sobat_ahli" />
+                android:text="@string/anak_anda_tidak_nberpotensi_stunting"
+                android:textColor="@color/blue_375570"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_semangat_mama"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/semangat_mama_ajak_aku_main_terus_ya"
-                app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
-                app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
-                app:layout_constraintTop_toBottomOf="@id/tv_misi_bareng_mama" />
 
-            <LinearLayout
-                android:id="@+id/ll_misi1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
-                app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
-                app:layout_constraintTop_toBottomOf="@id/tv_semangat_mama">
+    <TextView
+        android:id="@+id/tv_keterangan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/kesimpulan_dihasilkan_dari_data_yang_di_masukan_pengguna"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_status_stunting" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/figma_ic_latihan_mendangak"
-                    tools:ignore="ContentDescription" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_sobat_ahli"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_keterangan">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/latihan_mendangak_nberitahu_dia_untuk_belajar_mendangak" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-            </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/ll_misi2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
-                app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
-                app:layout_constraintTop_toBottomOf="@id/ll_misi1">
+    <TextView
+        android:id="@+id/tv_misi_bareng_mama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/misi_bareng_mama"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/cv_sobat_ahli"
+        app:layout_constraintTop_toBottomOf="@id/cv_sobat_ahli" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/figma_ic_latihan_mendangak"
-                    tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_semangat_mama"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/semangat_mama_ajak_aku_main_terus_ya"
+        app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
+        app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
+        app:layout_constraintTop_toBottomOf="@id/tv_misi_bareng_mama" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/perlihatkan_buku_berwarna_nmulai_perkenalkan_warna_pada_dia" />
+    <LinearLayout
+        android:id="@+id/ll_misi1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
+        app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
+        app:layout_constraintTop_toBottomOf="@id/tv_semangat_mama">
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/figma_ic_latihan_mendangak"
+            tools:ignore="ContentDescription" />
 
-            </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/latihan_mendangak_nberitahu_dia_untuk_belajar_mendangak" />
 
-            <LinearLayout
-                android:id="@+id/ll_misi3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
-                app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
-                app:layout_constraintTop_toBottomOf="@id/ll_misi2">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/figma_ic_latihan_mendangak"
-                    tools:ignore="ContentDescription" />
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/ajak_bercanda_nbuat_dia_tertawa_dengan_bermain" />
+    <LinearLayout
+        android:id="@+id/ll_misi2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
+        app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
+        app:layout_constraintTop_toBottomOf="@id/ll_misi1">
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/figma_ic_latihan_mendangak"
+            tools:ignore="ContentDescription" />
 
-            </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/perlihatkan_buku_berwarna_nmulai_perkenalkan_warna_pada_dia" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_misi3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
+        app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
+        app:layout_constraintTop_toBottomOf="@id/ll_misi2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/figma_ic_latihan_mendangak"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/ajak_bercanda_nbuat_dia_tertawa_dengan_bermain" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
         binding.tvNama.text = namaAnak
         val statusStunting = if (beratLahir < 2.5 || tinggiLahir < 48) {
-            "Anak anda BERPOTENSI\nStunting!"
+            "Anak anda berpotensi\nStunting!"
         } else {
             "Anak anda TIDAK\nberpotensi Stunting!"
         }
