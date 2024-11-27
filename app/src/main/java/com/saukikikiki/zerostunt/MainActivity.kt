@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
 //                R.id.navigation_notifications,
                 R.id.navigation_nutrition,
                 R.id.navigation_scan,
-                R.id.navigation_profile
+                R.id.navigation_profile,
+                R.id.navigation_tambah_data_anak
             )
         )
 //        setupActionBarWithNavController(navController, appBarConfiguration)

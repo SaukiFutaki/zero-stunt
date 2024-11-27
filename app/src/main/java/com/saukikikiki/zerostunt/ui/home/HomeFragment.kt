@@ -33,6 +33,32 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val namaAnak = arguments?.getString("namaAnak") ?: ""
+        val jenisKelamin = arguments?.getString("jenisKelamin") ?: ""
+        val tanggalLahir = arguments?.getString("tanggalLahir") ?: ""
+        val beratLahir = arguments?.getFloat("beratLahir") ?: 0f
+        val tinggiLahir = arguments?.getInt("tinggiLahir") ?: 0
+
+        binding.ivProfile.setImageResource(
+            if (jenisKelamin == "Perempuan") {
+                com.saukikikiki.zerostunt.R.drawable.baby_girl_icon
+            } else {
+                com.saukikikiki.zerostunt.R.drawable.baby_boy_icon
+            }
+        )
+
+        binding.tvNama.text = namaAnak
+        val statusStunting = if (beratLahir < 2.5 || tinggiLahir < 48) {
+            "Anak anda BERPOTENSI\nStunting!"
+        } else {
+            "Anak anda TIDAK\nberpotensi Stunting!"
+        }
+        binding.tvStatusStunting.text = statusStunting
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -94,30 +94,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_keterangan">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tv_sobat_ahli"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bajang_belum_terhubung_dengan_nsobat_ahli_segera_hubungkan"
-                        android:textColor="@color/black"
-                        app:layout_constraintEnd_toStartOf="@id/btn_hubungkan"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/btn_hubungkan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hubungkan"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
