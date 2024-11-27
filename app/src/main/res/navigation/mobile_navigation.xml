@@ -11,11 +11,7 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.saukikikiki.zerostunt.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -51,6 +47,38 @@
         android:id="@+id/navigation_nutrition"
         android:name="com.saukikikiki.zerostunt.ui.nutrition.NutritionFragment"
         android:label="Nutrition"
-        tools:layout="@layout/fragment_nutrition" />
+        tools:layout="@layout/fragment_nutrition" >
+        <action
+            android:id="@+id/action_navigation_nutrition_to_navigation_nutrition_result"
+            app:destination="@id/navigation_nutrition_result"
+
+            >
+            <argument
+                android:name="menu1Makanan"
+                app:argType="string" />
+            <argument
+                android:name="menu1Lauk"
+                app:argType="string" />
+            <argument
+                android:name="menu2Makanan"
+                app:argType="string" />
+            <argument
+                android:name="menu2Lauk"
+                app:argType="string" />
+            <argument
+                android:name="menu3Makanan"
+                app:argType="string" />
+            <argument
+                android:name="menu3Lauk"
+                app:argType="string" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_nutrition_result"
+        android:name="com.saukikikiki.zerostunt.ui.nutrition.NutritionResultFragment"
+        android:label="Nutrition Result"
+        tools:layout="@layout/fragment_nutrition_result" />
 
 </navigation>

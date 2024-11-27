@@ -16,9 +16,9 @@
         android:gravity="center"
         android:padding="16dp"
 
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/tv_info_nutrisi"
@@ -58,7 +58,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/sayur_bayam"
-                tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_sayur_bayam_detail"
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="16dp"
-                    android:text="Sayur Bayam\nKalori: ...\nProtein: ...\nKarbohidrat: ...\nLemak: ...\nSerat: ...\nVitamin C: ... "/>
+                    android:text="@string/sayur_bayam_nkalori_nprotein_nkarbohidrat_nlemak_nserat_nvitamin_c"/>
 
             </LinearLayout>
 
@@ -81,7 +81,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/gulai_daging_sapi"
-                tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_gulai_daging_detail"
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="16dp"
-                    android:text="Gulai Daging Sapi\nKalori: ...\nProtein: ...\nKarbohidrat: ...\nLemak: ...\nSerat: ...\nVitamin C: ... "/>
+                    android:text="@string/gulai_daging_sapi_nkalori_nprotein_nkarbohidrat_nlemak_nserat_nvitamin_c"/>
 
             </LinearLayout>
 
@@ -97,7 +97,7 @@
                 android:id="@+id/tv_analisis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Analisis Kecukupan Nutrisi"
+                android:text="@string/analisis_kecukupan_nutrisi"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
@@ -108,7 +108,7 @@
                 android:id="@+id/tv_analisis_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kebutuhan nutrisi harian belum tercukupi, misalnya kebutuhan zat besi dan kalsium masih kurang, maka akan diberikan rekomendasi tambahan."
+                android:text="@string/kebutuhan_nutrisi_harian_belum_tercukupi_misalnya_kebutuhan_zat_besi_dan_kalsium_masih_kurang_maka_akan_diberikan_rekomendasi_tambahan"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
@@ -117,7 +117,7 @@
                 android:id="@+id/tv_rekomendasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rekomendasi Makanan untuk Hari Berikutnya"
+                android:text="@string/rekomendasi_makanan_untuk_hari_berikutnya"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
@@ -128,7 +128,7 @@
                 android:id="@+id/tv_rekomendasi_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="• Untuk Zat Besi:\n   - Hati ayam panggang (100 gram): 8 mg zat besi\n   - Kacang-kacangan seperti kacang merah (100 gram): 2.5 mg zat besi\n• Untuk Kalsium:\n   - Susu skim (200 ml): 300 mg kalsium\n   - Tahu (100 gram): 178 mg kalsium\n• Rekomendasi lain (jika kalori atau vitamin belum mencukupi):\n   - Buah Jeruk atau Mangga untuk vitamin C\n   - Telur rebus untuk menambah asupan protein dan vitamin A"
+                android:text="@string/untuk_zat_besi_n_hati_ayam_panggang_100_gram_8_mg_zat_besi_n_kacang_kacangan_seperti_kacang_merah_100_gram_2_5_mg_zat_besi_n_untuk_kalsium_n_susu_skim_200_ml_300_mg_kalsium_n_tahu_100_gram_178_mg_kalsium_n_rekomendasi_lain_jika_kalori_atau_vitamin_belum_mencukupi_n_buah_jeruk_atau_mangga_untuk_vitamin_c_n_telur_rebus_untuk_menambah_asupan_protein_dan_vitamin_a"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>

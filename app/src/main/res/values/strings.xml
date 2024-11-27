@@ -12,4 +12,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <!-- TODO: fragment_nutrition_result -->
+    <string name="sayur_bayam_nkalori_nprotein_nkarbohidrat_nlemak_nserat_nvitamin_c">Sayur Bayam\nKalori: ...\nProtein: ...\nKarbohidrat: ...\nLemak: ...\nSerat: ...\nVitamin C: ...</string>
+    <string name="gulai_daging_sapi_nkalori_nprotein_nkarbohidrat_nlemak_nserat_nvitamin_c">Gulai Daging Sapi\nKalori: ...\nProtein: ...\nKarbohidrat: ...\nLemak: ...\nSerat: ...\nVitamin C: ...</string>
+    <string name="analisis_kecukupan_nutrisi">Analisis Kecukupan Nutrisi</string>
+    <string name="kebutuhan_nutrisi_harian_belum_tercukupi_misalnya_kebutuhan_zat_besi_dan_kalsium_masih_kurang_maka_akan_diberikan_rekomendasi_tambahan">Kebutuhan nutrisi harian belum tercukupi, misalnya kebutuhan zat besi dan kalsium masih kurang, maka akan diberikan rekomendasi tambahan.</string>
+    <string name="rekomendasi_makanan_untuk_hari_berikutnya">Rekomendasi Makanan untuk Hari Berikutnya</string>
+    <string name="untuk_zat_besi_n_hati_ayam_panggang_100_gram_8_mg_zat_besi_n_kacang_kacangan_seperti_kacang_merah_100_gram_2_5_mg_zat_besi_n_untuk_kalsium_n_susu_skim_200_ml_300_mg_kalsium_n_tahu_100_gram_178_mg_kalsium_n_rekomendasi_lain_jika_kalori_atau_vitamin_belum_mencukupi_n_buah_jeruk_atau_mangga_untuk_vitamin_c_n_telur_rebus_untuk_menambah_asupan_protein_dan_vitamin_a">• Untuk Zat Besi:\n - Hati ayam panggang (100 gram): 8 mg zat besi\n - Kacang-kacangan seperti kacang merah (100 gram): 2.5 mg zat besi\n• Untuk Kalsium:\n - Susu skim (200 ml): 300 mg kalsium\n - Tahu (100 gram): 178 mg kalsium\n• Rekomendasi lain (jika kalori atau vitamin belum mencukupi):\n - Buah Jeruk atau Mangga untuk vitamin C\n - Telur rebus untuk menambah asupan protein dan vitamin A</string>
+
+    <!--TODO: fragment_home -->
+    <string name="selamat_datang">Selamat Datang</string>
+    <string name="aurora_ribero">Aurora Ribero</string>
+    <string name="anak_anda_tidak_nberpotensi_stunting">Anak anda TIDAK\nberpotensi Stunting!</string>
+    <string name="kesimpulan_dihasilkan_dari_data_yang_di_masukan_pengguna">*Kesimpulan dihasilkan dari data yang di-masukan pengguna</string>
+    <string name="bajang_belum_terhubung_dengan_nsobat_ahli_segera_hubungkan">Bajang belum terhubung dengan\nSobat Ahli, segera hubungkan!</string>
+    <string name="hubungkan">Hubungkan</string>
+    <string name="misi_bareng_mama">Misi Bareng Mama</string>
+    <string name="semangat_mama_ajak_aku_main_terus_ya">Semangat mama, ajak aku main terus ya</string>
+    <string name="latihan_mendangak_nberitahu_dia_untuk_belajar_mendangak">Latihan Mendangak\nBeritahu Dia untuk belajar mendangak</string>
+    <string name="perlihatkan_buku_berwarna_nmulai_perkenalkan_warna_pada_dia">Perlihatkan buku berwarna\nMulai perkenalkan warna pada Dia</string>
+    <string name="ajak_bercanda_nbuat_dia_tertawa_dengan_bermain">Ajak bercanda\nBuat Dia tertawa dengan bermain</string>
+
+
 </resources>

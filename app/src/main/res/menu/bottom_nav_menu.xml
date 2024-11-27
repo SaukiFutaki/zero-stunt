@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/figma_ic_home"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_nutrition"
-        android:icon="@drawable/ic_demo_nutrition"
+        android:icon="@drawable/figma_ic_nutrition"
         android:title="@string/title_nutrition" />
 
 
     <item
         android:id="@+id/navigation_scan"
-        android:icon="@drawable/ic_camera"
+        android:icon="@drawable/figma_ic_camera"
         android:title="@string/title_scan" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/figma_ic_profile"
         android:title="@string/title_profile" />
 
 
