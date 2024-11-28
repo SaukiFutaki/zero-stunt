@@ -23,13 +23,27 @@
         android:id="@+id/navigation_register"
         android:name="com.saukikikiki.zerostunt.ui.auth.register.RegisterFragment"
         android:label="Register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_navigation_register_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.saukikikiki.zerostunt.ui.auth.login.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_register"
+            app:destination="@id/navigation_register" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_tambah_data_anak"
+            app:destination="@id/navigation_tambah_data_anak" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_scan"

@@ -1,60 +1,102 @@
 package com.saukikikiki.zerostunt.ui.auth.login
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.saukikikiki.zerostunt.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.saukikikiki.zerostunt.databinding.FragmentLoginBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnMasuk.setOnClickListener {
+            val email = binding.tilEmail.editText?.text.toString()
+            val password = binding.tilPassword.editText?.text.toString()
+
+            if (isValidInput(email, password)) {
+                if (authenticateUser(email, password)) {
+
+                    Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_SHORT).show()
+
+
+                    saveUserData(email, password)
+
+
+                    if (isChildDataAvailable(email)) {
+
+                        val action = LoginFragmentDirections.actionNavigationLoginToNavigationHome()
+                        findNavController().navigate(action)
+                    } else {
+
+                        val action = LoginFragmentDirections.actionNavigationLoginToNavigationTambahDataAnak()
+                        findNavController().navigate(action)
+                    }
+                } else {
+
+                    Toast.makeText(requireContext(), "Login gagal!", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        binding.tvDaftar.setOnClickListener {
+
+            val action = LoginFragmentDirections.actionNavigationLoginToNavigationRegister()
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun isValidInput(email: String, password: String): Boolean {
+        if (email.isBlank() || password.isBlank()) {
+            Toast.makeText(requireContext(), "Email dan password harus diisi", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
+
+    private fun authenticateUser(email: String, password: String): Boolean {
+        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val savedEmail = sharedPrefs.getString("email", "")
+        val savedPassword = sharedPrefs.getString("password", "")
+
+        return email == savedEmail && password == savedPassword
+    }
+
+    private fun saveUserData(email: String, password: String) {
+        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putBoolean("is_logged_in", true)
+        editor.putString("email", email)
+        editor.putString("password", password)
+        editor.apply()
+    }
+
+    private fun isChildDataAvailable(email: String): Boolean {
+        // Logika untuk cek apakah sudah ada data anak untuk user ini
+        // (misalnya, cek di SharedPreferences atau database)
+        // Untuk sementara, return false agar selalu diarahkan ke TambahDataAnakFragment
+        return false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

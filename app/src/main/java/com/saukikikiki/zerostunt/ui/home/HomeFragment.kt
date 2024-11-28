@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.saukikikiki.zerostunt.R
 import com.saukikikiki.zerostunt.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -44,9 +45,9 @@ class HomeFragment : Fragment() {
 
         binding.ivProfile.setImageResource(
             if (jenisKelamin == "Perempuan") {
-                com.saukikikiki.zerostunt.R.drawable.baby_girl_icon
+                R.drawable.profile_baby_girl
             } else {
-                com.saukikikiki.zerostunt.R.drawable.baby_boy_icon
+                R.drawable.baby_boy_icon
             }
         )
 
