@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.saukikikiki.zerostunt.databinding.FragmentNutritionResultBinding
 
 class NutritionResultFragment : Fragment() {
@@ -32,6 +33,9 @@ class NutritionResultFragment : Fragment() {
 
        binding.tvTitle.text = menu1Makanan + " " + menu1Lauk + " " + menu2Makanan + " " + menu2Lauk + " " + menu3Makanan + " " + menu3Lauk
 
+        binding.btnOk.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {
