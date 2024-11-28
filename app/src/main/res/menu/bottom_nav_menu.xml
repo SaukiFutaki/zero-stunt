@@ -22,10 +22,10 @@
         android:icon="@drawable/figma_ic_profile"
         android:title="@string/title_profile" />
 
-    <item
-        android:id="@+id/navigation_tambah_data_anak"
-        android:icon="@drawable/figma_ic_profile"
-        android:title="@string/title_profile" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_tambah_data_anak"-->
+<!--        android:icon="@drawable/figma_ic_profile"-->
+<!--        android:title="@string/title_profile" />-->
 
 
 

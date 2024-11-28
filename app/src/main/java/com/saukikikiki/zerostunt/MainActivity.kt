@@ -2,6 +2,7 @@ package com.saukikikiki.zerostunt
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,24 +26,24 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home,
-//             R.id.navigation_notifications,
-//                R.id.navigation_nutrition,
-//                R.id.navigation_scan,
-//                R.id.navigation_profile,
-//                R.id.navigation_tambah_data_anak
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+        // visibility of bottom navigation view at login and register fragment
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_login,
+                    R.id.navigation_register -> {
+                binding.navView.visibility = View.GONE
+            }
+                else -> {
+                    binding.navView.visibility = View.VISIBLE
+                }
+            }
+        }
 
         navView.setupWithNavController(navController)
 
         if (isUserLoggedIn()) {
             Toast.makeText(this, "User logged in", Toast.LENGTH_SHORT).show()
+
         } else {
            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
 
