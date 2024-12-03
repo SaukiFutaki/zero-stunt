@@ -128,19 +128,23 @@
                 android:id="@+id/tv_rekomendasi_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/untuk_zat_besi_n_hati_ayam_panggang_100_gram_8_mg_zat_besi_n_kacang_kacangan_seperti_kacang_merah_100_gram_2_5_mg_zat_besi_n_untuk_kalsium_n_susu_skim_200_ml_300_mg_kalsium_n_tahu_100_gram_178_mg_kalsium_n_rekomendasi_lain_jika_kalori_atau_vitamin_belum_mencukupi_n_buah_jeruk_atau_mangga_untuk_vitamin_c_n_telur_rebus_untuk_menambah_asupan_protein_dan_vitamin_a"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
-
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/untuk_zat_besi_n_hati_ayam_panggang_100_gram_8_mg_zat_besi_n_kacang_kacangan_seperti_kacang_merah_100_gram_2_5_mg_zat_besi_n_untuk_kalsium_n_susu_skim_200_ml_300_mg_kalsium_n_tahu_100_gram_178_mg_kalsium_n_rekomendasi_lain_jika_kalori_atau_vitamin_belum_mencukupi_n_buah_jeruk_atau_mangga_untuk_vitamin_c_n_telur_rebus_untuk_menambah_asupan_protein_dan_vitamin_a" />
 
         </LinearLayout>
-
-
-
-
     </androidx.core.widget.NestedScrollView>
 
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/nestedScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 
