@@ -54,5 +54,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 
+    // CameraX dependencies
+    implementation (libs.androidx.camera.camera2)
+    implementation (libs.androidx.camera.lifecycle)
+    implementation (libs.androidx.camera.view)
 
+    // For Image analysis (if needed for AI processing)
+    implementation (libs.androidx.camera.extensions)
 }
