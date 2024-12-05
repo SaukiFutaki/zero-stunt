@@ -176,7 +176,6 @@ class ScanFragment : Fragment() {
 
     //Menangani hasil requestPermissions
     //Kode Izin Cocok? kalau cocok diinisialisasi kamera nya
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

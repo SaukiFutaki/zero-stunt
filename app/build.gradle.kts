@@ -61,4 +61,8 @@ dependencies {
 
     // For Image analysis (if needed for AI processing)
     implementation (libs.androidx.camera.extensions)
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
 }

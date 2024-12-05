@@ -1,6 +1,5 @@
 package com.saukikikiki.zerostunt.ui.auth.register
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.saukikikiki.zerostunt.databinding.FragmentRegisterBinding
+import com.saukikikiki.zerostunt.ui.api.ApiClient
+import com.saukikikiki.zerostunt.ui.api.LoginResponse
+import com.saukikikiki.zerostunt.ui.api.RegisterRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterFragment : Fragment() {
 
@@ -27,45 +32,52 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnDaftar.setOnClickListener {
-            val nama = binding.tilNama.editText?.text.toString()
+            val name = binding.tilNama.editText?.text.toString()
             val email = binding.tilEmail.editText?.text.toString()
             val password = binding.tilPassword.editText?.text.toString()
 
-            if (isValidInput(nama, email, password)) {
-
-                saveUserData(nama, email, password)
-
-                Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
-
-
-                val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin()
-                findNavController().navigate(action)
+            if (isValidInput(name, email, password)) {
+                registerUser(name, email, password)
             }
         }
 
         binding.tvMasuk.setOnClickListener {
-
             val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin()
             findNavController().navigate(action)
         }
     }
 
-    private fun isValidInput(nama: String, email: String, password: String): Boolean {
-        if (nama.isBlank() || email.isBlank() || password.isBlank()) {
+    private fun isValidInput(name: String, email: String, password: String): Boolean {
+        return if (name.isBlank() || email.isBlank() || password.isBlank()) {
             Toast.makeText(requireContext(), "Harap isi semua field", Toast.LENGTH_SHORT).show()
-            return false
+            false
+        } else {
+            true
         }
-
-        return true
     }
 
-    private fun saveUserData(nama: String, email: String, password: String) {
-        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val editor = sharedPrefs.edit()
-        editor.putString("nama", nama)
-        editor.putString("email", email)
-        editor.putString("password", password)
-        editor.apply()
+    private fun registerUser(name: String, email: String, password: String) {
+        val registerRequest = RegisterRequest(name, email, password) // Gunakan RegisterRequest
+        ApiClient.authService.register(registerRequest).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    val registerResponse = response.body()
+                    if (registerResponse?.success == true) {
+                        Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
+                        val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin()
+                        findNavController().navigate(action)
+                    } else {
+                        Toast.makeText(requireContext(), "Registrasi gagal: ${registerResponse?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Registrasi gagal. Cek input Anda.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onDestroyView() {
