@@ -1,5 +1,6 @@
 package com.saukikikiki.zerostunt.ui.auth.register
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.saukikikiki.zerostunt.databinding.FragmentRegisterBinding
-import com.saukikikiki.zerostunt.ui.api.ApiClient
-import com.saukikikiki.zerostunt.ui.api.LoginResponse
-import com.saukikikiki.zerostunt.ui.api.RegisterRequest
+import com.saukikikiki.zerostunt.data.api.ApiClient
+import com.saukikikiki.zerostunt.data.api.LoginResponse
+import com.saukikikiki.zerostunt.data.api.RegisterRequest
+import com.saukikikiki.zerostunt.data.api.RegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,11 +60,12 @@ class RegisterFragment : Fragment() {
 
     private fun registerUser(name: String, email: String, password: String) {
         val registerRequest = RegisterRequest(name, email, password) // Gunakan RegisterRequest
-        ApiClient.authService.register(registerRequest).enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        ApiClient.authService.register(registerRequest).enqueue(object : Callback<RegisterResponse> {
+            override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
                 if (response.isSuccessful) {
                     val registerResponse = response.body()
                     if (registerResponse?.success == true) {
+
                         Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                         val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin()
                         findNavController().navigate(action)
@@ -74,10 +77,19 @@ class RegisterFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+
+    private fun saveUserData(email: String, token: String?) {
+        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putBoolean("is_logged_in", true)
+        editor.putString("email", email)
+        editor.apply()
     }
 
     override fun onDestroyView() {

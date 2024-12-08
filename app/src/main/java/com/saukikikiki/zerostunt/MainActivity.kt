@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.saukikikiki.zerostunt.databinding.ActivityMainBinding
 import com.saukikikiki.zerostunt.ui.auth.login.LoginFragmentDirections
+import com.saukikikiki.zerostunt.ui.auth.register.RegisterFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_login,
-                    R.id.navigation_register -> {
+                    R.id.navigation_register,R.id.navigation_nutrition_result -> {
                 binding.navView.visibility = View.GONE
             }
                 else -> {
@@ -43,9 +44,12 @@ class MainActivity : AppCompatActivity() {
 
         if (isUserLoggedIn()) {
             Toast.makeText(this, "User logged in", Toast.LENGTH_SHORT).show()
-
+            val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
+            navController.navigate(action)
         } else {
            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            val action = LoginFragmentDirections.actionNavigationLoginToNavigationRegister()
+            navController.navigate(action)
 
         }
     }
