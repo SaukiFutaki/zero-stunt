@@ -8,11 +8,10 @@ data class LoginRequest(val email: String, val password: String)
 data class LoginResponse(val success: Boolean, val message: String, val token: String?)
 data class RegisterRequest(val name: String, val email: String, val password: String)
 
-
 interface AuthService {
-    @POST("/api/auth/login")
+    @POST("/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
-    @POST("/api/auth/register")
+    @POST("/register")
     fun register(@Body request: RegisterRequest): Call<LoginResponse>
 }

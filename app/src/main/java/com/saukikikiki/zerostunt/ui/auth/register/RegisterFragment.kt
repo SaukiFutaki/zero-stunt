@@ -1,6 +1,7 @@
 package com.saukikikiki.zerostunt.ui.auth.register
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,20 +60,25 @@ class RegisterFragment : Fragment() {
     private fun registerUser(name: String, email: String, password: String) {
         val registerRequest = RegisterRequest(name, email, password) // Gunakan RegisterRequest
         ApiClient.authService.register(registerRequest).enqueue(object : Callback<LoginResponse> {
+
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     val registerResponse = response.body()
+                    Log.d("RegisterFragment", "Response body: $registerResponse")
                     if (registerResponse?.success == true) {
                         Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                         val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin()
                         findNavController().navigate(action)
                     } else {
+                        Log.d("RegisterFragment", "Response message: ${registerResponse?.message}")
                         Toast.makeText(requireContext(), "Registrasi gagal: ${registerResponse?.message}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
+                    Log.d("RegisterFragment", "Response code: ${response.code()}, error body: ${response.errorBody()?.string()}")
                     Toast.makeText(requireContext(), "Registrasi gagal. Cek input Anda.", Toast.LENGTH_SHORT).show()
                 }
             }
+
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
