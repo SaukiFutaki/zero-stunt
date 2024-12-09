@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.saukikikiki.zerostunt.databinding.FragmentScanResultBinding
 import org.json.JSONObject
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.saukikikiki.zerostunt.ui.nutrition.NutritionResultFragment.Nutrition
 import org.json.JSONException
@@ -68,7 +69,11 @@ class ScanResultFragment : Fragment() {
             binding.rvNotes.adapter = evaluationAdapter
 
 
-            Log.d("evalu", "eval: $evaluation")
+           binding.btnOk.setOnClickListener {
+               findNavController().navigate(
+                   ScanResultFragmentDirections.actionNavigationScanResultToNavigationScan()
+               )
+            }
         } catch (e: JSONException) {
             Log.e("ScanResultFragment", "Error parsing JSON: ${e.message}")
             Toast.makeText(requireContext(), "Error parsing data", Toast.LENGTH_SHORT).show()
