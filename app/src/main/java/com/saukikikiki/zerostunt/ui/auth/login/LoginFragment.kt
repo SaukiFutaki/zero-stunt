@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     if (loginResponse?.success == true) {
-                        Toast.makeText(requireContext(), "Login ${loginResponse.token}! ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Login ${loginResponse.uid}! ", Toast.LENGTH_SHORT).show()
 
                         // Navigasi ke HomeFragment atau TambahDataAnakFragment
                         val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)

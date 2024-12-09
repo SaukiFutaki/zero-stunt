@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         if (isUserLoggedIn()) {
-            Toast.makeText(this, "User logged in", Toast.LENGTH_SHORT).show()
+
             val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
             navController.navigate(action)
         } else {
-           Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+
             val action = LoginFragmentDirections.actionNavigationLoginToNavigationRegister()
             navController.navigate(action)
 

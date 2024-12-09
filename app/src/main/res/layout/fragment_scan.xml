@@ -5,23 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.scan.ScanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <!-- Kontainer Tombol -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/captureButton"
-        android:text="Capture"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="50dp" />
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="100dp">
+
+
+        <!-- Tombol Capture Lingkaran -->
+        <Button
+            android:id="@+id/captureButton"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/circle_button"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

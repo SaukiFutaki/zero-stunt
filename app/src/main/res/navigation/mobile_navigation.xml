@@ -71,23 +71,12 @@
 
             >
             <argument
-                android:name="menu1Makanan"
+                android:name="recommendations"
                 app:argType="string" />
             <argument
-                android:name="menu1Lauk"
+                android:name="summary"
                 app:argType="string" />
-            <argument
-                android:name="menu2Makanan"
-                app:argType="string" />
-            <argument
-                android:name="menu2Lauk"
-                app:argType="string" />
-            <argument
-                android:name="menu3Makanan"
-                app:argType="string" />
-            <argument
-                android:name="menu3Lauk"
-                app:argType="string" />
+
         </action>
 
     </fragment>
@@ -96,7 +85,11 @@
         android:id="@+id/navigation_nutrition_result"
         android:name="com.saukikikiki.zerostunt.ui.nutrition.NutritionResultFragment"
         android:label="Nutrition Result"
-        tools:layout="@layout/fragment_nutrition_result" />
+        tools:layout="@layout/fragment_nutrition_result" >
+        <action
+            android:id="@+id/action_navigation_nutrition_result_to_navigation_nutrition"
+            app:destination="@id/navigation_nutrition" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tambah_data_anak"
