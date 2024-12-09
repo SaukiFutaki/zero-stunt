@@ -46,7 +46,6 @@ class ScanFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var imageCapture: ImageCapture
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,9 +77,7 @@ class ScanFragment : Fragment() {
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
 
-
     //  Media Store as menyimpan foto ke galeri di folder Pictures/CameraX-Photos
-
 
     private fun takePhoto() {
         //Membuat File untuk menyimpan gambarnya
@@ -203,7 +200,6 @@ class ScanFragment : Fragment() {
         return null
     }
 
-
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener({
@@ -237,7 +233,6 @@ class ScanFragment : Fragment() {
         _binding = null
         cameraExecutor.shutdown()
     }
-
 
 
     //BAGIAN IZIN AKSES cameraX PADA DEVICE
@@ -297,8 +292,6 @@ class ScanFragment : Fragment() {
             }
         }
     }
-
-
 
     //Kode Unik khusus untuk izin kamera
     companion object {

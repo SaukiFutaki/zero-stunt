@@ -31,6 +31,4 @@ object ApiClient {
             .build()
             .create(ScanService::class.java)
     }
-
-
 }
