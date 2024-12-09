@@ -16,26 +16,26 @@
             android:id="@+id/tv_combination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Combination 1"
+            android:text="@string/combination_1"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_food1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Food 1: ..." />
+            android:text="@string/food_1" />
 
         <TextView
             android:id="@+id/tv_food2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Food 2: ..." />
+            android:text="@string/food_2" />
 
         <TextView
             android:id="@+id/tv_food3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Food 3: ..." />
+            android:text="@string/food_3" />
 
     </LinearLayout>
 

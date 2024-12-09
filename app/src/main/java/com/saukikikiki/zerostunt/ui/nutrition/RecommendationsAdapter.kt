@@ -19,7 +19,16 @@ class RecommendationsAdapter(private val recommendations: List<Recommendation>) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recommendation = recommendations[position]
         holder.binding.tvCombination.text = recommendation.combination
-        holder.binding.tvFood1.text = "Food 1: ${recommendation.foods[0]}"
+
+        if (recommendation.foods.size > 0) {
+            holder.binding.tvFood1.text = "Food 1: ${recommendation.foods[0]}"
+        }
+        if (recommendation.foods.size > 1) {
+            holder.binding.tvFood2.text = "Food 2: ${recommendation.foods[1]}"
+        }
+        if (recommendation.foods.size > 2) {
+            holder.binding.tvFood3.text = "Food 3: ${recommendation.foods[2]}"
+        }
 
     }
 

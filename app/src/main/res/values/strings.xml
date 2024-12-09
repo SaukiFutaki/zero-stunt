@@ -34,6 +34,11 @@
     <string name="latihan_mendangak_nberitahu_dia_untuk_belajar_mendangak">Latihan Mendangak\nBeritahu Dia untuk belajar mendangak</string>
     <string name="perlihatkan_buku_berwarna_nmulai_perkenalkan_warna_pada_dia">Perlihatkan buku berwarna\nMulai perkenalkan warna pada Dia</string>
     <string name="ajak_bercanda_nbuat_dia_tertawa_dengan_bermain">Ajak bercanda\nBuat Dia tertawa dengan bermain</string>
+    <string name="combination_1">Rekomendasi makanan 1</string>
+    <string name="ok">OK</string>
+    <string name="food_1">Makanan\t1</string>
+    <string name="food_2">Makanan 2</string>
+    <string name="food_3">Makanan 3</string>
 
 
 </resources>

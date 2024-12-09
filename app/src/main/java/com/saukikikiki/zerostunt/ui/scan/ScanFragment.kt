@@ -18,6 +18,7 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.fragment.findNavController
 import com.saukikikiki.zerostunt.data.api.ScanService
 import com.saukikikiki.zerostunt.databinding.FragmentScanBinding
 import okhttp3.MediaType
@@ -163,7 +164,8 @@ class ScanFragment : Fragment() {
                     val jsonResponse = response.body()?.string()
                     if (jsonResponse != null) {
                         // Menampilkan hasil sebagai Toast
-                        Toast.makeText(requireContext(), jsonResponse, Toast.LENGTH_LONG).show()
+                        val action = ScanFragmentDirections.actionNavigationScanToNavigationScanResult(jsonResponse)
+                        findNavController().navigate(action)
                     }
                 } else {
                     Toast.makeText(requireContext(), "Failed to predict image", Toast.LENGTH_SHORT).show()

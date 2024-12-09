@@ -90,12 +90,15 @@ class NutritionResultFragment : Fragment() {
 
     private fun parseRecommendations(recommendationsText: String): List<Recommendation> {
         val recommendationsList = mutableListOf<Recommendation>()
-        val combinations = recommendationsText.split("Combination")
+        // Pisahkan kombinasi berdasarkan pola "Combination X:"
+        val combinations = recommendationsText.split(Regex("Combination [0-9]+:"))
+        // Mulai dari indeks 1 karena indeks 0 adalah string kosong sebelum kombinasi pertama
         for (i in 1 until combinations.size) {
             val combination = "Combination ${i}"
-            val foods = combinations[i].split("Food")
-                .filter { it.isNotBlank() }
-                .map { it.trim().replace(Regex("[0-9]: "), "") }
+            // Pisahkan makanan berdasarkan pola "Food Y:"
+            val foods = combinations[i].split(Regex("Food [0-9]+:"))
+                .filter { it.isNotBlank() } // Filter string kosong
+                .map { it.trim() } // Rapikan spasi di awal dan akhir
             recommendationsList.add(Recommendation(combination, foods))
         }
         return recommendationsList

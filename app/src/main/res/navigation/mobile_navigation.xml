@@ -52,7 +52,11 @@
         android:id="@+id/navigation_scan"
         android:name="com.saukikikiki.zerostunt.ui.scan.ScanFragment"
         android:label="Scan"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_navigation_scan_to_navigation_scan_result"
+            app:destination="@id/navigation_scan_result" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -123,4 +127,15 @@
         </action>
     </fragment>
 
+
+    <fragment
+        android:id="@+id/navigation_scan_result"
+        android:name="com.saukikikiki.zerostunt.ui.scan.ScanResultFragment"
+        android:label="Scan Result"
+        tools:layout="@layout/fragment_scan_result">
+        <argument
+            android:name="analyzedResult"
+            app:argType="string" />
+
+    </fragment>
 </navigation>
