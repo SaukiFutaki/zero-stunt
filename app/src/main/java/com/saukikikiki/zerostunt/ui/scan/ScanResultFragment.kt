@@ -69,6 +69,9 @@ class ScanResultFragment : Fragment() {
             binding.rvNotes.adapter = evaluationAdapter
 
 
+            // binding text
+            binding.tvPrediction.text = prediction
+
            binding.btnOk.setOnClickListener {
                findNavController().navigate(
                    ScanResultFragmentDirections.actionNavigationScanResultToNavigationScan()

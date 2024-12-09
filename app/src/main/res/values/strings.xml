@@ -39,6 +39,9 @@
     <string name="food_1">Makanan\t1</string>
     <string name="food_2">Makanan 2</string>
     <string name="food_3">Makanan 3</string>
+    <string name="hasil_cek_nutrisi">Hasil Cek Nutrisi</string>
+    <string name="prediction_ayam">Prediction: Ayam</string>
+    <string name="catatan_kecukupan_gizi">Catatan Kecukupan Gizi</string>
 
 
 </resources>
