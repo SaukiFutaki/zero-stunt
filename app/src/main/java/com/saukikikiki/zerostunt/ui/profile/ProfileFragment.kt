@@ -36,12 +36,17 @@ class ProfileFragment : Fragment() {
 
         val token = sharedPrefs.getString("token", "") ?: ""
         val uid = sharedPrefs.getString("uid", "") ?: ""
+        val namaAnak = sharedPrefs.getString("namaAnak", "") ?: ""
+        val jenisKelamin = sharedPrefs.getString("jenisKelamin", "") ?: ""
+        val tanggalLahir = sharedPrefs.getString("tanggalLahir", "") ?: ""
+        val beratLahir = sharedPrefs.getFloat("beratLahir", 0f)
+        val tinggiLahir = sharedPrefs.getFloat("tinggiLahir", 0f)
 
 
 
 
         Log.d("ProfileFragment", "Token: $token")
-
+        Log.d("ProfileFragment", "Nama anak: $namaAnak")
         Log.d("ProfileFragment", "UID: $uid")
 
         ApiClient.authService.getUser(uid).enqueue(object : Callback<UserResponse> {
@@ -57,8 +62,12 @@ class ProfileFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-//                       binding.tvNamaAnakValue.text = userResponse.user.name
-//                        binding.tvEmailValue.text = userResponse.user.email
+
+                        binding.tvNamaAnakValue.text = namaAnak
+                        binding.tvTanggalLahirValue.text = tanggalLahir
+                        binding.tvBeratLahirValue.text = beratLahir.toString()
+                        binding.tvTinggiLahirValue.text = tinggiLahir.toString()
+
 
                     } else {
                         val errorMessage = userResponse?.message ?: "Gagal mengambil data user"

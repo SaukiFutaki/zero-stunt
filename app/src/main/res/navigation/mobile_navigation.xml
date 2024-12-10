@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_tambah_data_anak"
             app:destination="@id/navigation_tambah_data_anak" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
     </fragment>
 
 

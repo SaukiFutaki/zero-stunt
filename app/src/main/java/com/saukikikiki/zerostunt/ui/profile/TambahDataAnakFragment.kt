@@ -1,5 +1,6 @@
 package com.saukikikiki.zerostunt.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,11 +56,25 @@ class TambahDataAnakFragment : Fragment() {
             }
 
 
+            saveDataAnak(namaAnak, tanggalLahir, beratLahir, tinggiLahir, jenisKelamin)
             val action = TambahDataAnakFragmentDirections.actionNavigationTambahDataAnakToNavigationHome(
                 namaAnak, tanggalLahir, beratLahir, tinggiLahir, jenisKelamin
             )
             findNavController().navigate(action)
         }
+    }
+
+
+    private fun saveDataAnak(namaAnak: String, tanggalLahir: String, beratLahir: Float, tinggiLahir: Float, jenisKelamin: String) {
+        // Save data anak to shared preferences
+        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putString("namaAnak", namaAnak)
+        editor.putString("tanggalLahir", tanggalLahir)
+        editor.putFloat("beratLahir", beratLahir)
+        editor.putFloat("tinggiLahir", tinggiLahir)
+        editor.putString("jenisKelamin", jenisKelamin)
+        editor.apply()
     }
 
     override fun onDestroyView() {

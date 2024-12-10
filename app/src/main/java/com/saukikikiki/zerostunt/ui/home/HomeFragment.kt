@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.saukikikiki.zerostunt.R
 import com.saukikikiki.zerostunt.databinding.FragmentHomeBinding
@@ -40,11 +41,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val namaAnak = arguments?.getString("namaAnak") ?: ""
-        val jenisKelamin = arguments?.getString("jenisKelamin") ?: ""
-        val tanggalLahir = arguments?.getString("tanggalLahir") ?: ""
-        val beratLahir = arguments?.getFloat("beratLahir") ?: 0f
-        val tinggiLahir = arguments?.getInt("tinggiLahir") ?: 0
+        val sharedPref = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val jenisKelamin = sharedPref.getString("jenisKelamin", "")
+        val namaAnak = sharedPref.getString("namaAnak", "")
+        val beratLahir = sharedPref.getFloat("beratLahir", 0f)
+        val tinggiLahir = sharedPref.getFloat("tinggiLahir", 0f)
 
         binding.ivProfile.setImageResource(
             if (jenisKelamin == "Perempuan") {
@@ -59,7 +60,17 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        // get user_data shared preferences
+        binding.ivNotification.setOnClickListener {
+            val action = HomeFragmentDirections.actionNavigationHomeToNavigationNotifications()
+            findNavController().navigate(action, NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .setPopEnterAnim(R.anim.slide_in_left)
+                .setPopExitAnim(R.anim.slide_out_right)
+                .build())
+        }
+
+
 
 
         binding.tvNama.text = namaAnak

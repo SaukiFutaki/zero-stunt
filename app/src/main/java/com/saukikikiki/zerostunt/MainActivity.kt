@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_login,
-                R.id.navigation_register, R.id.navigation_nutrition_result, R.id.navigation_scan_result,R.id.navigation_tambah_data_anak -> {
+                R.id.navigation_register, R.id.navigation_nutrition_result, R.id.navigation_scan_result, R.id.navigation_tambah_data_anak, R.id.navigation_notifications -> {
                     binding.navView.visibility = View.GONE
                 }
 
@@ -70,12 +70,14 @@ class MainActivity : AppCompatActivity() {
                         // Sudah ada data anak, arahkan ke HomeFragment
                         navController.navigate(R.id.navigation_home)
                     }
+
                     else -> {
                         // Belum ada data anak, arahkan ke TambahDataAnakFragment
                         navController.navigate(R.id.navigation_tambah_data_anak)
                     }
                 }
             }
+
             else -> {
                 // User belum login, ke RegisterFragment
                 navController.navigate(R.id.navigation_register)
@@ -101,6 +103,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun isChildDataAvailable(): Boolean {
         val sharedPrefs = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        return sharedPrefs.getBoolean("is_child_data_available", false)
+        val namaAnak = sharedPrefs.getString("namaAnak", null)
+        return !namaAnak.isNullOrBlank()
     }
 }
