@@ -65,7 +65,6 @@ class RegisterFragment : Fragment() {
                 if (response.isSuccessful) {
                     val registerResponse = response.body()
                     if (registerResponse?.success == true) {
-
                         Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                         val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin()
                         findNavController().navigate(action)
@@ -84,13 +83,7 @@ class RegisterFragment : Fragment() {
     }
 
 
-    private fun saveUserData(email: String, token: String?) {
-        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val editor = sharedPrefs.edit()
-        editor.putBoolean("is_logged_in", true)
-        editor.putString("email", email)
-        editor.apply()
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
