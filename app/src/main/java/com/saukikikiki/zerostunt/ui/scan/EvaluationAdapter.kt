@@ -1,5 +1,6 @@
 package com.saukikikiki.zerostunt.ui.scan
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,11 +19,13 @@ class EvaluationAdapter(private val evaluations: List<ScanResultFragment.Evaluat
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val evaluation = evaluations[position]
-        Log.d("EvaluationAdapter", "Evaluation name: ${evaluation.name}")
-        Log.d("EvaluationAdapter", "Evaluation value: ${evaluation.value}")
         holder.binding.tvEvaluationName.text = evaluation.name
-        holder.binding.tvEvaluationValue.text = evaluation.value
 
+        val textColor = if (evaluation.value == "Sufficient") Color.GREEN else Color.RED
+        holder.binding.tvEvaluationValue.setTextColor(textColor)
+//        holder.binding.tvEvaluationValue.text = evaluation.value
+        val evalValue = if (evaluation.value == "Sufficient") "Mencukupi" else "Kurang"
+        holder.binding.tvEvaluationValue.text = evalValue
 
     }
 

@@ -2,6 +2,7 @@ package com.saukikikiki.zerostunt.ui.auth.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,11 @@ class LoginFragment : Fragment() {
                         // Navigasi ke HomeFragment atau TambahDataAnakFragment
                         val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
                         val editor = sharedPrefs.edit()
+                        editor.putBoolean("is_logged_in", true)
                         editor.putString("token", loginResponse.token)
+                        editor.putString("uid", loginResponse.uid)
+                        editor.apply()
+                        Log.d("LoginFragment", "uid: ${loginResponse.uid}")
                         val action = LoginFragmentDirections.actionNavigationLoginToNavigationTambahDataAnak()
                         findNavController().navigate(action)
                     } else {

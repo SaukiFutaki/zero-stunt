@@ -1,12 +1,15 @@
 package com.saukikikiki.zerostunt.ui.home
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.saukikikiki.zerostunt.R
 import com.saukikikiki.zerostunt.databinding.FragmentHomeBinding
 
@@ -50,6 +53,14 @@ class HomeFragment : Fragment() {
                 R.drawable.baby_boy_icon
             }
         )
+
+        binding.ivProfile.setOnClickListener {
+            val action = HomeFragmentDirections.actionNavigationHomeToNavigationTambahDataAnak()
+            findNavController().navigate(action)
+        }
+
+        // get user_data shared preferences
+
 
         binding.tvNama.text = namaAnak
         val statusStunting = if (beratLahir < 2.5 || tinggiLahir < 48) {

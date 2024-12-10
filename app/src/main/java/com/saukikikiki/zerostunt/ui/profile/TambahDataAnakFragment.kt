@@ -41,7 +41,7 @@ class TambahDataAnakFragment : Fragment() {
             val namaAnak = binding.tilNamaAnak.editText?.text.toString()
             val tanggalLahir = binding.tilTanggalLahir.editText?.text.toString()
             val beratLahir = binding.tilBeratLahir.editText?.text.toString().toFloatOrNull() ?: 0f
-            val tinggiLahir = binding.tilTinggiLahir.editText?.text.toString().toIntOrNull() ?: 0
+            val tinggiLahir = binding.tilTinggiLahir.editText?.text.toString().toFloatOrNull() ?: 0f
             val jenisKelamin = if (binding.ivPerempuan.drawable.constantState == resources.getDrawable(com.saukikikiki.zerostunt.R.drawable.ic_girl_active).constantState) {
                 "Perempuan"
             } else {

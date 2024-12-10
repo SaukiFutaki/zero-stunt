@@ -1,5 +1,6 @@
 package com.saukikikiki.zerostunt.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,14 +32,31 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val uid = "MFPybvyCVgZb3Ca3030svvxFMKx1"
+        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+
+        val token = sharedPrefs.getString("token", "") ?: ""
+        val uid = sharedPrefs.getString("uid", "") ?: ""
+
+
+
+
+        Log.d("ProfileFragment", "Token: $token")
+
+        Log.d("ProfileFragment", "UID: $uid")
 
         ApiClient.authService.getUser(uid).enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
                     val userResponse = response.body()
+                    Log.d("ProfileFragment", "Response: $userResponse")
                     if (userResponse?.success == true) {
-                            Toast.makeText(requireContext(), "Berhasil mengambil data user ${userResponse.user}", Toast.LENGTH_SHORT).show()
+                        Log.d("ProfileFragment", "User: ${userResponse.user}")
+                        Toast.makeText(
+                            requireContext(),
+                            "Berhasil mengambil data user ${userResponse.user}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
 //                       binding.tvNamaAnakValue.text = userResponse.user.name
 //                        binding.tvEmailValue.text = userResponse.user.email
 
@@ -47,7 +65,11 @@ class ProfileFragment : Fragment() {
                         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Gagal mengambil data user", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Gagal mengambil data user",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -31,6 +32,10 @@ class NutritionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.fabHelp.setOnClickListener(){
+            showHelpDialog()
+        }
 
         binding.btnSubmit.setOnClickListener {
             if (isInputValid()) {
@@ -101,7 +106,20 @@ class NutritionFragment : Fragment() {
 
 
 
+    private fun showHelpDialog() {
+        val dialog = HelpDialogFragment()
+        dialog.show(childFragmentManager, "HelpDialogFragment")
 
+        // Tunda pemanggilan requireView()
+        dialog.dialog?.setOnShowListener {
+            dialog.requireView().translationY = dialog.requireView().height.toFloat()
+            dialog.requireView().animate()
+                .translationY(0f)
+                .setDuration(300L)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

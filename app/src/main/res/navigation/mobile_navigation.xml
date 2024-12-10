@@ -9,7 +9,14 @@
         android:id="@+id/navigation_home"
         android:name="com.saukikikiki.zerostunt.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_login"
+            app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tambah_data_anak"
+            app:destination="@id/navigation_tambah_data_anak" />
+    </fragment>
 
 
 
@@ -104,22 +111,22 @@
             android:id="@+id/action_navigation_tambah_data_anak_to_navigation_home"
             app:destination="@id/navigation_home" >
 
-        <argument
-            android:name="namaAnak"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument
-            android:name="tanggalLahir"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument
-            android:name="beratLahir"
-            app:argType="float"
-            android:defaultValue="0" />
-        <argument
-            android:name="tinggiLahir"
-            app:argType="integer"
-            android:defaultValue="0" />
+            <argument
+                android:name="namaAnak"
+                app:argType="string"
+                android:defaultValue="" />
+            <argument
+                android:name="tanggalLahir"
+                app:argType="string"
+                android:defaultValue="" />
+            <argument
+                android:name="beratLahir"
+                app:argType="float"
+                android:defaultValue="0" />
+            <argument
+                android:name="tinggiLahir"
+                app:argType="float"
+                android:defaultValue="0" />
             <argument
                 android:name="jenisKelamin"
                 app:argType="string"
