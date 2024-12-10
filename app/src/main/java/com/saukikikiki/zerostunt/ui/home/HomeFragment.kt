@@ -33,8 +33,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
         return root
     }
 
@@ -69,8 +67,6 @@ class HomeFragment : Fragment() {
                 .setPopExitAnim(R.anim.slide_out_right)
                 .build())
         }
-
-
 
 
         binding.tvNama.text = namaAnak

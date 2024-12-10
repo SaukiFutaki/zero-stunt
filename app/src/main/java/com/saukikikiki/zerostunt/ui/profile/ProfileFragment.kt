@@ -31,7 +31,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
         val token = sharedPrefs.getString("token", "") ?: ""
@@ -41,9 +40,6 @@ class ProfileFragment : Fragment() {
         val tanggalLahir = sharedPrefs.getString("tanggalLahir", "") ?: ""
         val beratLahir = sharedPrefs.getFloat("beratLahir", 0f)
         val tinggiLahir = sharedPrefs.getFloat("tinggiLahir", 0f)
-
-
-
 
         Log.d("ProfileFragment", "Token: $token")
         Log.d("ProfileFragment", "Nama anak: $namaAnak")
@@ -62,12 +58,10 @@ class ProfileFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-
                         binding.tvNamaAnakValue.text = namaAnak
                         binding.tvTanggalLahirValue.text = tanggalLahir
                         binding.tvBeratLahirValue.text = beratLahir.toString()
                         binding.tvTinggiLahirValue.text = tinggiLahir.toString()
-
 
                     } else {
                         val errorMessage = userResponse?.message ?: "Gagal mengambil data user"

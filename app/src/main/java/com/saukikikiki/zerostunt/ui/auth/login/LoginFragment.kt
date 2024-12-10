@@ -37,12 +37,15 @@ class LoginFragment : Fragment() {
             val email = binding.tilEmail.editText?.text.toString()
             val password = binding.tilPassword.editText?.text.toString()
 
+            Log.d("LoginFragment", "Button Masuk clicked with email: $email, password: $password")
+
             if (isValidInput(email, password)) {
                 loginUser(email, password)
             }
         }
 
         binding.tvDaftar.setOnClickListener {
+            Log.d("LoginFragment", "Navigating to register fragment")
             val action = LoginFragmentDirections.actionNavigationLoginToNavigationRegister()
             findNavController().navigate(action)
         }
@@ -50,43 +53,55 @@ class LoginFragment : Fragment() {
 
     private fun loginUser(email: String, password: String) {
         val loginRequest = LoginRequest(email, password)
+        Log.d("LoginFragment", "Initiating login request: $loginRequest")
+
         ApiClient.authService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                Log.d("LoginFragment", "onResponse called with response: ${response.code()}")
+
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
+                    Log.d("LoginFragment", "Login response body: $loginResponse")
+
                     if (loginResponse?.success == true) {
                         Toast.makeText(requireContext(), "Login ${loginResponse.uid}! ", Toast.LENGTH_SHORT).show()
 
-                        // Navigasi ke HomeFragment atau TambahDataAnakFragment
                         val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
                         val editor = sharedPrefs.edit()
                         editor.putBoolean("is_logged_in", true)
                         editor.putString("token", loginResponse.token)
                         editor.putString("uid", loginResponse.uid)
                         editor.apply()
-                        Log.d("LoginFragment", "uid: ${loginResponse.uid}")
+
+                        Log.d("LoginFragment", "Login successful. UID: ${loginResponse.uid}, Token: ${loginResponse.token}")
                         val action = LoginFragmentDirections.actionNavigationLoginToNavigationTambahDataAnak()
                         findNavController().navigate(action)
                     } else {
                         val errorMessage = loginResponse?.message ?: "Login gagal."
+                        Log.d("LoginFragment", "Login failed: $errorMessage")
                         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 } else {
+                    Log.d("LoginFragment", "Login unsuccessful with code: ${response.code()}, message: ${response.message()}")
                     Toast.makeText(requireContext(), "Login gagal. Cek email dan password Anda.", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Log.e("LoginFragment", "Login request failed: ${t.message}", t)
                 Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun isValidInput(email: String, password: String): Boolean {
+        Log.d("LoginFragment", "Validating input: email=$email, password=$password")
         return if (email.isBlank() || password.isBlank()) {
+            Log.d("LoginFragment", "Validation failed: email or password is blank")
             Toast.makeText(requireContext(), "Email dan password harus diisi", Toast.LENGTH_SHORT).show()
             false
         } else {
+            Log.d("LoginFragment", "Validation passed")
             true
         }
     }

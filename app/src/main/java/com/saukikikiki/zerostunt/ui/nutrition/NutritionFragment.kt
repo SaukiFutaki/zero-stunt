@@ -48,7 +48,6 @@ class NutritionFragment : Fragment() {
 
                 val foods = listOf(menu1Makanan, menu1Lauk, menu2Makanan, menu2Lauk, menu3Makanan, menu3Lauk)
 
-
                 detectAndEvaluate(foods)
             }
         }
@@ -71,7 +70,6 @@ class NutritionFragment : Fragment() {
         }
         return true
     }
-
 
   private fun detectAndEvaluate(foods: List<String>) {
         val detectRequest = DetectRequest(foods)
@@ -103,8 +101,6 @@ class NutritionFragment : Fragment() {
             }
         })
     }
-
-
 
     private fun showHelpDialog() {
         val dialog = HelpDialogFragment()

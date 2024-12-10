@@ -54,7 +54,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
     // CameraX dependencies
     implementation (libs.androidx.camera.camera2)
     implementation (libs.androidx.camera.lifecycle)
@@ -66,12 +65,16 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
-
     implementation(libs.okhttp)
 
-    implementation(libs.circleimageview)
+    //tflite model local  dependency
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
 
-    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
-    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
-    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+    //SplashScreen?
+    implementation(libs.androidx.core.splashscreen)
+
+    //foto profile lingkaran
+    implementation(libs.circleimageview)
 }
