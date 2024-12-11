@@ -24,17 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZeroStunt"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31"
-        tools:ignore="LockedOrientationActivity">
+        tools:targetApi="31">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".SplashActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
