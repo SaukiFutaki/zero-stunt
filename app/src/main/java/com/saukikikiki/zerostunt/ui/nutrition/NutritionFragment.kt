@@ -48,7 +48,6 @@ class NutritionFragment : Fragment() {
 
                 val foods = listOf(menu1Makanan, menu1Lauk, menu2Makanan, menu2Lauk, menu3Makanan, menu3Lauk)
 
-
                 detectAndEvaluate(foods)
             }
         }
@@ -72,8 +71,7 @@ class NutritionFragment : Fragment() {
         return true
     }
 
-
-  private fun detectAndEvaluate(foods: List<String>) {
+    private fun detectAndEvaluate(foods: List<String>) {
         val detectRequest = DetectRequest(foods)
         ApiClient.detectAndEvaluateService.detect(detectRequest).enqueue(object : Callback<DetectResponse> {
             override fun onResponse(call: Call<DetectResponse>, response: Response<DetectResponse>) {
@@ -104,8 +102,6 @@ class NutritionFragment : Fragment() {
         })
     }
 
-
-
     private fun showHelpDialog() {
         val dialog = HelpDialogFragment()
         dialog.show(childFragmentManager, "HelpDialogFragment")
@@ -126,4 +122,3 @@ class NutritionFragment : Fragment() {
         _binding = null
     }
 }
-

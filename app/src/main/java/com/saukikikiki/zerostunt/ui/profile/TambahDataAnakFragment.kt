@@ -2,18 +2,42 @@ package com.saukikikiki.zerostunt.ui.profile
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
+import com.saukikikiki.zerostunt.R
+
+
+import com.saukikikiki.zerostunt.data.room.AppDatabase
+import com.saukikikiki.zerostunt.data.room.ChildDataDao
+import com.saukikikiki.zerostunt.data.room.ChildEntity
 import com.saukikikiki.zerostunt.databinding.FragmentTambahDataAnakBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.tensorflow.lite.Interpreter
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.nio.channels.FileChannel
 
 class TambahDataAnakFragment : Fragment() {
 
     private var _binding: FragmentTambahDataAnakBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var interpreter: Interpreter
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var childDataDao: ChildDataDao
+
+    // Normalization parameters
+    private val meanValues = floatArrayOf(0.5f, 12f, 3f, 50f, 10f, 75f)
+    private val stdValues = floatArrayOf(0.5f, 6f, 0.5f, 5f, 2f, 10f)
+    private var isLakiLakiSelected: Boolean = false
+    private var isPerempuanSelected: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,59 +50,158 @@ class TambahDataAnakFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Load TFLite model
+        interpreter = Interpreter(loadModelFile())
+
+        appDatabase = Room.databaseBuilder(
+            requireContext(),
+            AppDatabase::class.java, "child-database"
+        ).build()
+        childDataDao = appDatabase.ChildDao()
 
         binding.ivLakiLaki.setOnClickListener {
-            binding.ivLakiLaki.setImageResource(com.saukikikiki.zerostunt.R.drawable.baby_boy_icon_active)
-            binding.ivPerempuan.setImageResource(com.saukikikiki.zerostunt.R.drawable.baby_girl_icon)
+            isLakiLakiSelected = !isLakiLakiSelected
+            isPerempuanSelected = false
+
+            if (isLakiLakiSelected) {
+                binding.ivLakiLaki.scaleX = 1.2f
+                binding.ivLakiLaki.scaleY = 1.2f
+                binding.ivPerempuan.scaleX = 1f
+                binding.ivPerempuan.scaleY = 1f
+                binding.ivPerempuan.setImageResource(R.drawable.baby_girl_icon)
+
+            } else {
+                binding.ivLakiLaki.scaleX = 1f
+                binding.ivLakiLaki.scaleY = 1f
+                binding.ivLakiLaki.setImageResource(R.drawable.baby_boy_icon)
+                Toast.makeText(
+                    requireContext(),
+                    "Jenis kelamin laki-laki tidak dipilih",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         binding.ivPerempuan.setOnClickListener {
-            binding.ivPerempuan.setImageResource(com.saukikikiki.zerostunt.R.drawable.ic_girl_active)
-            binding.ivLakiLaki.setImageResource(com.saukikikiki.zerostunt.R.drawable.baby_boy_icon)
+            isPerempuanSelected = !isPerempuanSelected
+            isLakiLakiSelected = false
+
+            if (isPerempuanSelected) {
+                binding.ivPerempuan.scaleX = 1.2f
+                binding.ivPerempuan.scaleY = 1.2f
+                binding.ivLakiLaki.scaleX = 1f
+                binding.ivLakiLaki.scaleY = 1f
+                binding.ivLakiLaki.setImageResource(R.drawable.baby_boy_icon)
+            } else {
+                binding.ivPerempuan.scaleX = 1f
+                binding.ivPerempuan.scaleY = 1f
+                binding.ivPerempuan.setImageResource(R.drawable.baby_girl_icon)
+            }
         }
 
         binding.btnSimpan.setOnClickListener {
-
-            val namaAnak = binding.tilNamaAnak.editText?.text.toString()
-            val tanggalLahir = binding.tilTanggalLahir.editText?.text.toString()
-            val beratLahir = binding.tilBeratLahir.editText?.text.toString().toFloatOrNull() ?: 0f
-            val tinggiLahir = binding.tilTinggiLahir.editText?.text.toString().toFloatOrNull() ?: 0f
-            val jenisKelamin = if (binding.ivPerempuan.drawable.constantState == resources.getDrawable(com.saukikikiki.zerostunt.R.drawable.ic_girl_active).constantState) {
-                "Perempuan"
-            } else {
-                "Laki-laki"
+            val gender = when {
+                isLakiLakiSelected -> 1f
+                isPerempuanSelected -> 0f
+                else -> {
+                    return@setOnClickListener
+                }
             }
+            val namaAnak = binding.etNamaAnak.text.toString()
+            val age = binding.etUmur.text.toString().toFloatOrNull() ?: 0f
+            val birthWeight = binding.etBeratLahir.text.toString().toFloatOrNull() ?: 0f
+            val birthLength = binding.etPanjangLahir.text.toString().toFloatOrNull() ?: 0f
+            val bodyWeight = binding.etBeratBadan.text.toString().toFloatOrNull() ?: 0f
+            val bodyLength = binding.etPanjangBadan.text.toString().toFloatOrNull() ?: 0f
 
-
-            if (namaAnak.isBlank() || tanggalLahir.isBlank()) {
-                Toast.makeText(requireContext(), "Harap isi semua field", Toast.LENGTH_SHORT).show()
+            if (age == 0f || birthWeight == 0f || birthLength == 0f || bodyWeight == 0f || bodyLength == 0f) {
+                Toast.makeText(
+                    requireContext(),
+                    "Harap isi semua field dengan benar",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
+            val result =
+                predictStunting(gender, age, birthWeight, birthLength, bodyWeight, bodyLength)
+            // Save result to SharedPreferences
+            val sharedPref =
+                requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            with(sharedPref.edit()) {
+                putString("statusStunting", result)
+                putString("namaAnak", namaAnak)
+                putFloat("gender", gender)
+                putFloat("age", age)
+                putFloat("birthWeight", birthWeight)
+                putFloat("birthLength", birthLength)
+                putFloat("bodyWeight", bodyWeight)
+                putFloat("bodyLength", bodyLength)
+                apply()
+            }
 
-            saveDataAnak(namaAnak, tanggalLahir, beratLahir, tinggiLahir, jenisKelamin)
-            val action = TambahDataAnakFragmentDirections.actionNavigationTambahDataAnakToNavigationHome(
-                namaAnak, tanggalLahir, beratLahir, tinggiLahir, jenisKelamin
+            val childData = ChildEntity(
+                name = namaAnak,
+                gender = gender,
+                age = age,
+                birthWeight = birthWeight,
+                birthLength = birthLength,
+                bodyWeight = bodyWeight,
+                bodyLength = bodyLength,
+                stuntingStatus = result
             )
-            findNavController().navigate(action)
+            GlobalScope.launch {
+                childDataDao.insert(childData)
+            }
+            Log.d("TambahDataAnakFragment", "Hasil prediksi: $childData")
+
+            Toast.makeText(requireContext(), "Hasil prediksi: $result", Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(R.id.action_navigation_tambah_data_anak_to_navigation_home)
         }
     }
 
+    private fun predictStunting(
+        gender: Float,
+        age: Float,
+        birthWeight: Float,
+        birthLength: Float,
+        bodyWeight: Float,
+        bodyLength: Float
+    ): String {
+        val inputBuffer = ByteBuffer.allocateDirect(6 * 4).order(ByteOrder.nativeOrder())
+        inputBuffer.putFloat(normalize(gender, meanValues[0], stdValues[0]))
+        inputBuffer.putFloat(normalize(age, meanValues[1], stdValues[1]))
+        inputBuffer.putFloat(normalize(birthWeight, meanValues[2], stdValues[2]))
+        inputBuffer.putFloat(normalize(birthLength, meanValues[3], stdValues[3]))
+        inputBuffer.putFloat(normalize(bodyWeight, meanValues[4], stdValues[4]))
+        inputBuffer.putFloat(normalize(bodyLength, meanValues[5], stdValues[5]))
+        inputBuffer.rewind()
 
-    private fun saveDataAnak(namaAnak: String, tanggalLahir: String, beratLahir: Float, tinggiLahir: Float, jenisKelamin: String) {
-        // Save data anak to shared preferences
-        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val editor = sharedPrefs.edit()
-        editor.putString("namaAnak", namaAnak)
-        editor.putString("tanggalLahir", tanggalLahir)
-        editor.putFloat("beratLahir", beratLahir)
-        editor.putFloat("tinggiLahir", tinggiLahir)
-        editor.putString("jenisKelamin", jenisKelamin)
-        editor.apply()
+        val outputBuffer = ByteBuffer.allocateDirect(1 * 4).order(ByteOrder.nativeOrder())
+        interpreter.run(inputBuffer, outputBuffer)
+        outputBuffer.rewind()
+
+        val prediction = outputBuffer.float
+        return if (prediction > 0.7) "Stunting" else "Tidak Stunting"
+    }
+
+    private fun normalize(value: Float, mean: Float, std: Float): Float {
+        return (value - mean) / std
+    }
+
+    private fun loadModelFile(): ByteBuffer {
+        val assetFileDescriptor = requireActivity().assets.openFd("stunting_model (1).tflite")
+        val fileInputStream = assetFileDescriptor.createInputStream()
+        val fileChannel = fileInputStream.channel
+        val startOffset = assetFileDescriptor.startOffset
+        val declaredLength = assetFileDescriptor.declaredLength
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        interpreter.close()
     }
 }

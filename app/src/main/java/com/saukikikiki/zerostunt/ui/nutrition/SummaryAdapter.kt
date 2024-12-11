@@ -1,5 +1,6 @@
 package com.saukikikiki.zerostunt.ui.nutrition
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,12 @@ class SummaryAdapter(private val nutritions: List<Nutrition>) :
         val nutrition = nutritions[position]
         holder.binding.tvNameAndUnit.text = nutrition.nameAndUnit
         holder.binding.tvValue.text = nutrition.value
+
+//        when (nutrition.value) {
+//            "kekurangan" -> holder.binding.tvValue.setTextColor(Color.RED)
+//            "cukup" -> holder.binding.tvValue.setTextColor(Color.GREEN)
+//            "berlebih" -> holder.binding.tvValue.setTextColor(Color.DKGRAY)
+//        }
     }
 
     override fun getItemCount(): Int = nutritions.size

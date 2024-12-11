@@ -33,8 +33,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
         return root
     }
 
@@ -44,8 +42,8 @@ class HomeFragment : Fragment() {
         val sharedPref = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val jenisKelamin = sharedPref.getString("jenisKelamin", "")
         val namaAnak = sharedPref.getString("namaAnak", "")
-        val beratLahir = sharedPref.getFloat("beratLahir", 0f)
-        val tinggiLahir = sharedPref.getFloat("tinggiLahir", 0f)
+
+
 
         binding.ivProfile.setImageResource(
             if (jenisKelamin == "Perempuan") {
@@ -70,16 +68,10 @@ class HomeFragment : Fragment() {
                 .build())
         }
 
-
-
-
         binding.tvNama.text = namaAnak
-        val statusStunting = if (beratLahir < 2.5 || tinggiLahir < 48) {
-            "Anak anda berpotensi\nStunting!"
-        } else {
-            "Anak anda TIDAK\nberpotensi Stunting!"
-        }
-        binding.tvStatusStunting.text = statusStunting
+
+        val statusStunting = sharedPref.getString("statusStunting", "Belum Ada Data, Silahkan Isi Ya!")
+        binding.tvStatusStunting.text = "Status: $statusStunting"
     }
 
     override fun onDestroyView() {
@@ -87,3 +79,4 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+
