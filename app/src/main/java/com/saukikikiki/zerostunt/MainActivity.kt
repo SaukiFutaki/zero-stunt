@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.sleep(3000)
         installSplashScreen()
-        Thread.sleep(2000)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -56,7 +56,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
     // CameraX dependencies
     implementation (libs.androidx.camera.camera2)
     implementation (libs.androidx.camera.lifecycle)
@@ -65,19 +64,19 @@ dependencies {
     // For Image analysis (if needed for AI processing)
     implementation (libs.androidx.camera.extensions)
 
+    //API
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
-
-
     implementation(libs.okhttp)
 
+    //Cirle Profile
     implementation(libs.circleimageview)
 
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
 
-    //SplashScreen?
+    //SplashScreen
     implementation(libs.androidx.core.splashscreen)
 
     // Room
@@ -85,5 +84,7 @@ dependencies {
      ksp(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    //Work Manager
+    implementation(libs.androidx.work.runtime.ktx)
 
 }
