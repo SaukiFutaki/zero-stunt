@@ -45,7 +45,6 @@ data class DetectResponse(
     val message: String
 )
 
-
 interface AuthService {
     @POST("/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
@@ -53,17 +52,14 @@ interface AuthService {
     @POST("/register")
     fun register(@Body request: RegisterRequest): Call<RegisterResponse>
 
-
     @GET("/user/{uid}")
     fun getUser(@Path("uid") uid: String): Call<UserResponse>
 }
-
 
 interface DetectAndEvaluateService {
     @POST("/detect_and_evaluate")
     fun detect(@Body request: DetectRequest): Call<DetectResponse>
 }
-
 
 interface ScanService {
     @Multipart

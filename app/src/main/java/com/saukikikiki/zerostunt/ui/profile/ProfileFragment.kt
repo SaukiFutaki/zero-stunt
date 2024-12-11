@@ -92,8 +92,10 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                if (isAdded && context != null) {
+                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
                 Log.e("ProfileFragment", "Error: ${t.message}")
-                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

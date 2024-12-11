@@ -24,6 +24,7 @@ coreSplashscreen = "1.0.0"
 roomKtx = "2.5.2"
 roomCompiler = "2.5.2"
 roomRuntime = "2.5.2"
+activity = "1.9.3"
 
 [libraries]
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCamera2" }
@@ -52,6 +53,7 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
