@@ -7,16 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.saukikikiki.zerostunt.R
+import com.saukikikiki.zerostunt.data.room.AppDatabase
 import com.saukikikiki.zerostunt.databinding.FragmentHomeBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+
+    private lateinit var appDatabase: AppDatabase
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,19 +47,47 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPref = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val jenisKelamin = sharedPref.getString("jenisKelamin", "")
-        val namaAnak = sharedPref.getString("namaAnak", "")
+        appDatabase = Room.databaseBuilder(
+            requireContext(),
+            AppDatabase::class.java, "child-database"
+        ).build()
 
 
 
-        binding.ivProfile.setImageResource(
-            if (jenisKelamin == "Perempuan") {
-                R.drawable.profile_baby_girl
-            } else {
-                R.drawable.baby_boy_icon
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val childData = appDatabase.ChildDao().getLastChildData()
+
+
+            requireActivity().runOnUiThread {
+                if (childData != null) {
+                    val child = childData
+                    Log.d("ProfileFragment", "Child data: $child")
+                    binding.tvNama.text = child.name
+                    binding.tvStatusStunting.text = "Status: ${child.stuntingStatus}"
+
+
+                    val gender = when (child.gender) {
+                        1.0f -> "Laki-laki"
+                        0.0f -> "Perempuan"
+                        else -> "Tidak Diketahui"
+                    }
+
+                    if (gender == "Perempuan") {
+                        binding.ivProfile.setImageResource(R.drawable.baby_girl_icon)
+                    } else {
+                        binding.ivProfile.setImageResource(R.drawable.baby_boy_icon)
+                    }
+
+
+                } else {
+
+                    Toast.makeText(requireContext(), "Data anak tidak ditemukan", Toast.LENGTH_SHORT).show()
+                }
             }
-        )
+        }
+
+
 
         binding.ivProfile.setOnClickListener {
             val action = HomeFragmentDirections.actionNavigationHomeToNavigationTambahDataAnak()
@@ -68,10 +104,7 @@ class HomeFragment : Fragment() {
                 .build())
         }
 
-        binding.tvNama.text = namaAnak
 
-        val statusStunting = sharedPref.getString("statusStunting", "Belum Ada Data, Silahkan Isi Ya!")
-        binding.tvStatusStunting.text = "Status: $statusStunting"
     }
 
     override fun onDestroyView() {

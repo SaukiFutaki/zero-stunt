@@ -77,7 +77,7 @@ class NutritionFragment : Fragment() {
             override fun onResponse(call: Call<DetectResponse>, response: Response<DetectResponse>) {
                 if (response.isSuccessful) {
                     val detectResponse = response.body()
-                    if (detectResponse?.success == false) {
+                    if (detectResponse?.success == true) {
                         val recommendations = detectResponse.recommendations
                         val summary = detectResponse.summary
 

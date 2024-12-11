@@ -24,9 +24,8 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
-
     private lateinit var appDatabase: AppDatabase
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,10 +44,7 @@ class ProfileFragment : Fragment() {
 
 
         val uid = sharedPrefs.getString("uid", "") ?: ""
-        val age = sharedPrefs.getFloat("age", 0f)
-        val bodyWeight = sharedPrefs.getFloat("bodyWeight", 0f)
-        val bodyLength = sharedPrefs.getFloat("bodyLength", 0f)
-        val namaAnak = sharedPrefs.getString("namaAnak", "") ?: ""
+
 
         CoroutineScope(Dispatchers.IO).launch {
             val childData = appDatabase.ChildDao().getLastChildData()
