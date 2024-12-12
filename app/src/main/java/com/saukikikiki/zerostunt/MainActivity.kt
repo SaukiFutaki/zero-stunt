@@ -4,18 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saukikikiki.zerostunt.databinding.ActivityMainBinding
-import com.saukikikiki.zerostunt.ui.auth.login.LoginFragmentDirections
-import com.saukikikiki.zerostunt.ui.auth.register.RegisterFragmentDirections
-import com.saukikikiki.zerostunt.ui.home.HomeFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,90 +17,98 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(3000)
         installSplashScreen()
+        Thread.sleep(2000)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // visibility of bottom navigation view at login and register fragment
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.navigation_login,
-                R.id.navigation_register, R.id.navigation_nutrition_result, R.id.navigation_scan_result, R.id.navigation_tambah_data_anak, R.id.navigation_notifications -> {
-                    binding.navView.visibility = View.GONE
-                }
 
-                else -> {
-                    binding.navView.visibility = View.VISIBLE
-                }
+        // Daftar fragment utama
+        val mainDestinations = setOf(
+            R.id.navigation_home,
+            R.id.navigation_scan,
+            R.id.navigation_profile,
+            R.id.navigation_nutrition
+        )
+
+        // Visibility of bottom navigation view
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.navView.visibility = when (destination.id) {
+                R.id.navigation_login,
+                R.id.navigation_register,
+                R.id.navigation_nutrition_result,
+                R.id.navigation_scan_result,
+                R.id.navigation_tambah_data_anak,
+                R.id.navigation_notifications -> View.GONE
+                else -> View.VISIBLE
             }
         }
 
+        // Setup bottom navigation view with navController
         navView.setupWithNavController(navController)
 
-//        if (isUserLoggedIn()) {
-//            // User sudah login, cek apakah sudah ada data anak
-//            if (isChildDataAvailable()) {
-//                // Sudah ada data anak, arahkan ke HomeFragment
-//                val action = RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
-//                navController.navigate(action)
-//            } else {
-//                // Belum ada data anak, arahkan ke TambahDataAnakFragment
-//                val action =
-//                    LoginFragmentDirections.actionNavigationLoginToNavigationTambahDataAnak()
-//                navController.navigate(action)
-//            }
-//        } else {
-//            // User belum login, arahkan ke RegisterFragment
-//            val action = HomeFragmentDirections.actionNavigationHomeToNavigationLogin()
-//            navController.navigate(action)
-//        }
+        // Navigasi berdasarkan status login dan ketersediaan data anak
         when {
             isUserLoggedIn() -> {
-                // User sudah login, cek apakah sudah ada data anak
-                when {
-                    isChildDataAvailable() -> {
-                        // Sudah ada data anak, arahkan ke HomeFragment
-                        navController.navigate(R.id.navigation_home)
-                    }
-
-                    else -> {
-                        // Belum ada data anak, arahkan ke TambahDataAnakFragment
-                        navController.navigate(R.id.navigation_tambah_data_anak)
-                    }
+                if (isChildDataAvailable()) {
+                    navController.navigate(R.id.navigation_home)
+                } else {
+                    navController.navigate(R.id.navigation_tambah_data_anak)
                 }
             }
-
             else -> {
-                // User belum login, ke RegisterFragment
                 navController.navigate(R.id.navigation_register)
             }
         }
+    }
 
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val currentDestinationId = navController.currentDestination?.id
+        val mainDestinations = setOf(
+            R.id.navigation_home,
+            R.id.navigation_scan,
+            R.id.navigation_profile,
+            R.id.navigation_nutrition
+        )
+
+        when {
+            currentDestinationId == R.id.navigation_home -> {
+                // Jika di fragment home, keluar aplikasi
+                finish()
+            }
+            currentDestinationId in setOf(
+                R.id.navigation_profile,
+                R.id.navigation_scan,
+                R.id.navigation_nutrition
+            ) -> {
+                // Jika di fragment profile, scan, atau nutrition, kembali ke home
+                navController.navigate(R.id.navigation_home)
+            }
+            else -> {
+                // Kembali ke fragment sebelumnya
+                super.onBackPressed()
+            }
+        }
     }
 
     private fun isUserLoggedIn(): Boolean {
-
         val sharedPrefs = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val uid = sharedPrefs.getString("uid", null)
         if (uid != null) {
-            Log.d("MainActivity", "UID: $uid") // Uid ada
+            Log.d("MainActivity", "UID: $uid") // UID tersedia
         } else {
-            Log.d("MainActivity", "UID tidak tersedia") // Uid tidak ada
+            Log.d("MainActivity", "UID tidak tersedia") // UID tidak ada
         }
-
         return sharedPrefs.getBoolean("is_logged_in", false)
-
     }
-
 
     private fun isChildDataAvailable(): Boolean {
         val sharedPrefs = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val statusStunting = sharedPrefs.getString("statusStunting", null)
-       return statusStunting != null
+        return statusStunting != null
     }
 }

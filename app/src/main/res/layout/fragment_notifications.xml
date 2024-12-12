@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Waktu pemberian ASI ASI eksklusif penting untuk menjadikan tumbuh kembang bayi Anda."
+            android:text="Waktu pemberian ASI-ASI eksklusif penting untuk menjadikan tumbuh kembang bayi Anda."
             android:textColor="@android:color/black" />
 
         <TextView
@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jangan lupa! Berikan ASI eksklusif selama 2-3 jam untuk si kecil sehat dan kuat."
+            android:text="Jangan lupa! Berikan ASI eksklusif selama 2-3 jam agar si kecil sehat dan kuat!"
             android:textColor="@android:color/black" />
 
         <TextView

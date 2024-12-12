@@ -76,7 +76,7 @@ class TambahDataAnakFragment : Fragment() {
                 binding.ivLakiLaki.setImageResource(R.drawable.baby_boy_icon)
                 Toast.makeText(
                     requireContext(),
-                    "Jenis kelamin laki-laki tidak dipilih",
+                    "Laki-Laki",
                     Toast.LENGTH_SHORT
                 ).show()
             }

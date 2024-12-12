@@ -47,7 +47,7 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) : Wor
         val notification = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("Pengingat Mingguan")
-            .setContentText("Jangan lupa isi data anak minggu ini.")
+            .setContentText("Jangan lupa isi data anak seminggu sekali!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
