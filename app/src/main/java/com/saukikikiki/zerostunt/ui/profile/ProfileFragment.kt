@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.room.Room
+import com.saukikikiki.zerostunt.R
 import com.saukikikiki.zerostunt.data.api.ApiClient
 import com.saukikikiki.zerostunt.data.api.UserResponse
 import com.saukikikiki.zerostunt.data.room.AppDatabase
@@ -40,6 +41,7 @@ class ProfileFragment : Fragment() {
             requireContext(),
             AppDatabase::class.java, "child-database"
         ).build()
+
         val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
 
@@ -58,6 +60,18 @@ class ProfileFragment : Fragment() {
                     binding.tvTanggalLahirValue.text = "${child.age} bulan"
                     binding.tvBeratLahirValue.text = "${child.bodyWeight} kg"
                     binding.tvTinggiLahirValue.text = "${child.bodyLength} cm"
+                    val gender = when (child.gender) {
+                        1.0f -> "Laki-laki"
+                        0.0f -> "Perempuan"
+                        else -> "Tidak Diketahui"
+                    }
+
+                    if (gender == "Perempuan") {
+                        binding.ivFotoProfil.setImageResource(R.drawable.baby_girl_icon)
+                    } else {
+                        binding.ivFotoProfil.setImageResource(R.drawable.baby_boy_icon)
+                    }
+
                 } else {
 
                     Toast.makeText(requireContext(), "Data anak tidak ditemukan", Toast.LENGTH_SHORT).show()

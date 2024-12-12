@@ -3,7 +3,10 @@ package com.saukikikiki.zerostunt.workers
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
@@ -12,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.saukikikiki.zerostunt.MainActivity
 import com.saukikikiki.zerostunt.R
 
 class NotificationWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
@@ -33,6 +37,15 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) : Wor
         val channelId = "weekly_reminder_channel"
         val channelName = "Weekly Reminder Notifications"
 
+        val intent = Intent(applicationContext, MainActivity::class.java).apply {
+            putExtra("openFragment", "TambahDataAnakFragment")
+        }
+
+        val pendingIntent: PendingIntent? = TaskStackBuilder.create(applicationContext).run {
+            addNextIntentWithParentStack(intent)
+            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -49,6 +62,8 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) : Wor
             .setContentTitle("Pengingat Mingguan")
             .setContentText("Jangan lupa isi data anak seminggu sekali!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
             .build()
 
         Log.d("NotificationWorker", "Notification built")

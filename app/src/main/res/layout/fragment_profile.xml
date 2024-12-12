@@ -39,7 +39,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 android:src="@drawable/baby_boy_icon"
-                app:civ_border_color="#3498DB"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="2dp" />
 
             <com.google.android.material.textfield.TextInputLayout
