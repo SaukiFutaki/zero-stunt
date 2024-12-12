@@ -55,9 +55,7 @@ Zero Stunt is an innovative mobile application that leverages artificial intelli
 #### UI Components
 - `Material Design`
 - `Circle ImageView`
-- Carousel RecyclerView
-- MPAndroidChart
-- CircleIndicator
+
 
 ### Development Tools
 - Android Studio
