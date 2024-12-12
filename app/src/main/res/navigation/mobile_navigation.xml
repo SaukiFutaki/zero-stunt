@@ -9,7 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.saukikikiki.zerostunt.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_login"
+            app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tambah_data_anak"
+            app:destination="@id/navigation_tambah_data_anak" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
+    </fragment>
 
 
 
@@ -52,7 +62,11 @@
         android:id="@+id/navigation_scan"
         android:name="com.saukikikiki.zerostunt.ui.scan.ScanFragment"
         android:label="Scan"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_navigation_scan_to_navigation_scan_result"
+            app:destination="@id/navigation_scan_result" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -71,23 +85,12 @@
 
             >
             <argument
-                android:name="menu1Makanan"
+                android:name="recommendations"
                 app:argType="string" />
             <argument
-                android:name="menu1Lauk"
+                android:name="summary"
                 app:argType="string" />
-            <argument
-                android:name="menu2Makanan"
-                app:argType="string" />
-            <argument
-                android:name="menu2Lauk"
-                app:argType="string" />
-            <argument
-                android:name="menu3Makanan"
-                app:argType="string" />
-            <argument
-                android:name="menu3Lauk"
-                app:argType="string" />
+
         </action>
 
     </fragment>
@@ -96,7 +99,11 @@
         android:id="@+id/navigation_nutrition_result"
         android:name="com.saukikikiki.zerostunt.ui.nutrition.NutritionResultFragment"
         android:label="Nutrition Result"
-        tools:layout="@layout/fragment_nutrition_result" />
+        tools:layout="@layout/fragment_nutrition_result" >
+        <action
+            android:id="@+id/action_navigation_nutrition_result_to_navigation_nutrition"
+            app:destination="@id/navigation_nutrition" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tambah_data_anak"
@@ -107,22 +114,22 @@
             android:id="@+id/action_navigation_tambah_data_anak_to_navigation_home"
             app:destination="@id/navigation_home" >
 
-        <argument
-            android:name="namaAnak"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument
-            android:name="tanggalLahir"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument
-            android:name="beratLahir"
-            app:argType="float"
-            android:defaultValue="0" />
-        <argument
-            android:name="tinggiLahir"
-            app:argType="integer"
-            android:defaultValue="0" />
+            <argument
+                android:name="namaAnak"
+                app:argType="string"
+                android:defaultValue="" />
+            <argument
+                android:name="tanggalLahir"
+                app:argType="string"
+                android:defaultValue="" />
+            <argument
+                android:name="beratLahir"
+                app:argType="float"
+                android:defaultValue="0" />
+            <argument
+                android:name="tinggiLahir"
+                app:argType="float"
+                android:defaultValue="0" />
             <argument
                 android:name="jenisKelamin"
                 app:argType="string"
@@ -130,4 +137,18 @@
         </action>
     </fragment>
 
+
+    <fragment
+        android:id="@+id/navigation_scan_result"
+        android:name="com.saukikikiki.zerostunt.ui.scan.ScanResultFragment"
+        android:label="Scan Result"
+        tools:layout="@layout/fragment_scan_result">
+        <argument
+            android:name="analyzedResult"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_scan_result_to_navigation_scan"
+            app:destination="@id/navigation_scan" />
+
+    </fragment>
 </navigation>

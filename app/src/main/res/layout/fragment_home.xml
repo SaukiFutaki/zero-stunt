@@ -57,8 +57,8 @@
 
         <LinearLayout
             android:id="@+id/ll_status_stunting"
-            android:layout_width="370dp"
-            android:layout_height="96dp"
+            android:layout_width="393dp"
+            android:layout_height="102dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_corner_pink"
             android:orientation="vertical"
@@ -152,6 +152,7 @@
             android:text="@string/latihan_mendangak_nberitahu_dia_untuk_belajar_mendangak" />
 
         <CheckBox
+            android:id="@+id/cb_misi1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -182,6 +183,7 @@
             android:text="@string/perlihatkan_buku_berwarna_nmulai_perkenalkan_warna_pada_dia" />
 
         <CheckBox
+            android:id="@+id/cb_misi2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -212,10 +214,20 @@
             android:text="@string/ajak_bercanda_nbuat_dia_tertawa_dengan_bermain" />
 
         <CheckBox
+            android:id="@+id/cb_misi3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+        <LinearLayout
+            android:id="@+id/mission_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@id/tv_misi_bareng_mama"
+            app:layout_constraintEnd_toEndOf="@id/cv_sobat_ahli"
+            app:layout_constraintTop_toBottomOf="@id/ll_misi3">
+        </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

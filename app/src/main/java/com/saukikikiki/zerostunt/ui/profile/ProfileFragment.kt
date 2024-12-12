@@ -1,60 +1,129 @@
 package com.saukikikiki.zerostunt.ui.profile
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.saukikikiki.zerostunt.R
+import com.saukikikiki.zerostunt.data.api.ApiClient
+import com.saukikikiki.zerostunt.data.api.UserResponse
+import com.saukikikiki.zerostunt.data.room.AppDatabase
+import com.saukikikiki.zerostunt.databinding.FragmentProfileBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        appDatabase = Room.databaseBuilder(
+            requireContext(),
+            AppDatabase::class.java, "child-database"
+        ).build()
+
+        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+
+
+        val uid = sharedPrefs.getString("uid", "") ?: ""
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val childData = appDatabase.ChildDao().getLastChildData()
+
+
+            requireActivity().runOnUiThread {
+                if (childData != null) {
+                    val child = childData
+                    Log.d("ProfileFragment", "Child data: $child")
+                    binding.tvNamaAnakValue.text = child.name
+                    binding.tvTanggalLahirValue.text = "${child.age} bulan"
+                    binding.tvBeratLahirValue.text = "${child.bodyWeight} kg"
+                    binding.tvTinggiLahirValue.text = "${child.bodyLength} cm"
+                    val gender = when (child.gender) {
+                        1.0f -> "Laki-laki"
+                        0.0f -> "Perempuan"
+                        else -> "Tidak Diketahui"
+                    }
+
+                    if (gender == "Perempuan") {
+                        binding.ivFotoProfil.setImageResource(R.drawable.baby_girl_icon)
+                    } else {
+                        binding.ivFotoProfil.setImageResource(R.drawable.baby_boy_icon)
+                    }
+
+                } else {
+
+                    Toast.makeText(requireContext(), "Data anak tidak ditemukan", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        ApiClient.authService.getUser(uid).enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    val userResponse = response.body()
+                    if (userResponse?.success == true) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Berhasil mengambil data user ${userResponse.user}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+
+
+                    } else {
+                        val errorMessage = userResponse?.message ?: "Gagal mengambil data user"
+                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Gagal mengambil data user",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                if (isAdded && context != null) {
+                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+                Log.e("ProfileFragment", "Error: ${t.message}")
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.IO).launch {
+            val childData = appDatabase.ChildDao().getAllChildData()
+            Log.d("ProfileFragment", "Child data: $childData")
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

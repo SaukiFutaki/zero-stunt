@@ -2,6 +2,7 @@ package com.saukikikiki.zerostunt.ui.auth.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,20 +55,36 @@ class LoginFragment : Fragment() {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     if (loginResponse?.success == true) {
-                        Toast.makeText(requireContext(), "Login ${loginResponse.token}! ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Login ${loginResponse.uid}! ",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         // Navigasi ke HomeFragment atau TambahDataAnakFragment
-                        val sharedPrefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                        val sharedPrefs = requireActivity().getSharedPreferences(
+                            "user_data",
+                            Context.MODE_PRIVATE
+                        )
                         val editor = sharedPrefs.edit()
+                        editor.putBoolean("is_logged_in", true)
                         editor.putString("token", loginResponse.token)
-                        val action = LoginFragmentDirections.actionNavigationLoginToNavigationTambahDataAnak()
+                        editor.putString("uid", loginResponse.uid)
+                        editor.apply()
+                        Log.d("LoginFragment", "uid: ${loginResponse.uid}")
+                        val action =
+                            LoginFragmentDirections.actionNavigationLoginToNavigationTambahDataAnak()
                         findNavController().navigate(action)
                     } else {
                         val errorMessage = loginResponse?.message ?: "Login gagal."
                         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Login gagal. Cek email dan password Anda.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Login gagal. Cek email dan password Anda.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -79,7 +96,8 @@ class LoginFragment : Fragment() {
 
     private fun isValidInput(email: String, password: String): Boolean {
         return if (email.isBlank() || password.isBlank()) {
-            Toast.makeText(requireContext(), "Email dan password harus diisi", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Email dan password harus diisi", Toast.LENGTH_SHORT)
+                .show()
             false
         } else {
             true
